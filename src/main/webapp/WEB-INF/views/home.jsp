@@ -9,11 +9,11 @@
 <body>
 
 <div class="container">
-    <h2>Welcome, ${sessionScope.user.username}</h2>
+    <h2>Welcome to Forum Discussion ${sessionScope.user.username}</h2>
 
     <p><a href="/logout" class="logout-link">Logout</a></p>
 
-    <!-- Create Post Form -->
+   
     <div class="form-container">
         <h3>Create a new Post</h3>
         <form action="/posts" method="post">
@@ -26,8 +26,13 @@
             <button type="submit">Post</button>
         </form>
     </div>
+<form action="/home" method="get" style="margin: 20px 0;">
+        <input type="text" name="search" value="${search}" placeholder="Search by title..." 
+               style="padding: 10px; border-radius: 8px; width: 70%; max-width: 400px; border: 1px solid #ccc;" />
+        <button type="submit" class="btn" style="margin-left: 10px; width:50%">Search</button>
+    </form>
 
-    <!-- Posts Display -->
+    
     <h3>All Posts</h3>
     <div id="posts">
         <c:forEach items="${posts}" var="post">
