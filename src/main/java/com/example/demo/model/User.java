@@ -9,8 +9,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="users")
 public class User {
-  @Id
-  @GeneratedValue private Long id;
+ @Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
   @Column
   private String username;
   @Column
