@@ -29,7 +29,7 @@ public class UserController {
     @Autowired
     private CommentsRepo commentRepo;
 
-    // --- AUTHENTICATION ---
+   
 
     @GetMapping("/signup")
     public String signupForm() {
@@ -86,12 +86,18 @@ public class UserController {
     
 
     @GetMapping("/home")
-    public String home(HttpSession session, Model model) {
+    public String showHome(@RequestParam(value = "search", required = false) String search,
+                           Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) return "redirect:/login";
 
-        List<Post> posts = postRepo.findAll();
-        model.addAttribute("user", user);
+        List<Post> posts;
+        if (search != null && !search.isEmpty()) {
+            posts = postRepo.findByTitleContainingIgnoreCaseOrderByIdDesc(search);
+        } else {
+            posts = postRepo.findAllByOrderByIdDesc();
+        }
+
         model.addAttribute("posts", posts);
         return "home";
     }
